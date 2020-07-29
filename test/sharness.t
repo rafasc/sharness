@@ -64,7 +64,7 @@ run_sub_test_lib_test () {
 		cat >>".$name.t" &&
 		chmod +x ".$name.t" &&
 		export SHARNESS_TEST_SRCDIR &&
-		$prefix ./".$name.t" $opt --chain-lint >out 2>err
+		PS4=+ $prefix ./".$name.t" $opt --chain-lint >out 2>err
 	)
 }
 
@@ -313,7 +313,7 @@ test_expect_success 'pretend we have a pass, fail, and known breakage using -x' 
 		> +false
 		> error: last command exited with \$?=1
 		EOF
-		sed -e 's/^++* /+/' >clean_err <err &&
+		sed -e 's/^+\{1,\} \{0,\}/+/' >clean_err <err &&
 		test_cmp expect_err clean_err
 	)
 "
